@@ -4,10 +4,24 @@
   <!-- <input type="text" ref="name">  -->
   <!-- <button @click="handleClick">Click Me</button> -->
   <p>Welcome...   </p>
-  <div v-if="showModal">
-    <Modal :header= "header" :text = "text" theme="sale"/>  
+  <teleport to="#modals" v-if="showModal">
+    <Modal theme="sale" @close="toggleModal">
+      <template v-slot:links>
+        <a href="#">Sign up now</a> <br>
+        <a href="#">more info</a>
+      </template>
+      <h1>Main Title</h1>
+      <P> This is an paragraph</P>
+    </Modal>
+  </teleport>
+  <div v-if="showModalTwo">
+    <Modal @close="toggleModalTwo">
+      <h1>Sign up to news</h1>
+      <P> for updates and promo code</P>
+    </Modal> 
   </div>
   <button @click="toggleModal">Open Model</button>
+  <button @click="toggleModalTwo">Open Model</button>
   
 </template>
 
@@ -24,6 +38,7 @@ export default {
       header : 'Sign up to the giveway',
       text : 'This is a sample text',
       showModal: false,
+      showModalTwo: false,
     }    
   },
   methods: {
@@ -33,13 +48,16 @@ export default {
     },
     toggleModal(){
       this.showModal = !this.showModal
-    }
+    },
+    toggleModalTwo(){
+      this.showModalTwo = !this.showModalTwo
+    },
   },
 }
 </script>
 
 <style>
-#app {
+#app, #modals{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

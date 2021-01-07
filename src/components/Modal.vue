@@ -1,21 +1,25 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" @click.self="closeModal">
         <div class="modal" :class="{sale:theme === 'sale'}">
-            <h1>Modal Title</h1>
+            <slot></slot>
+            <div class="actions">
+                <slot name="links"></slot>
+            </div>
+            <!-- <h1>Modal Title</h1>
             <p> Modal Content  </p>
             <p>{{header}}</p>
-            <p>{{text}}</p>
+            <p>{{text}}</p> -->
         </div>
     </div>
 </template>
-<script>
+<script>    
 export default {
-    props:['header','text', 'theme'],
-    data() {
-        return {
-            
+    props:['theme'],
+    methods:{
+        closeModal(){
+            this.$emit('close')
         }
-    },
+    }
 }
 </script>
 
